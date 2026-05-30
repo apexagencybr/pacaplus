@@ -6,22 +6,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Paca Plus</title>
 
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <meta name="theme-color" content="#003849" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Paca Plus" />
+
   <style>
     :root {
       --azul: #003849;
-      --azul-2: #00506a;
+      --azul2: #00495f;
       --vermelho: #e4003a;
-      --amarelo: #ffb800;
-      --fundo: #f3f6f8;
+      --amarelo: #ffbf00;
+      --fundo: #f4f7f9;
       --card: #ffffff;
-      --texto: #102a33;
-      --cinza: #6b7b83;
+      --texto: #062b36;
+      --cinza: #647780;
     }
 
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
       font-family: Arial, Helvetica, sans-serif;
     }
 
@@ -36,89 +43,68 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 24px;
+      padding: 22px;
       background:
-        radial-gradient(circle at top right, rgba(228, 0, 58, .10), transparent 35%),
-        linear-gradient(135deg, #003849, #07222c);
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,.08), transparent 25%),
+        linear-gradient(135deg, #003849, #05242d 65%, #002b37);
     }
 
     .login-card {
       width: 100%;
-      max-width: 420px;
-      background: #fff;
+      max-width: 430px;
+      background: white;
       border-radius: 24px;
       padding: 30px;
-      box-shadow: 0 20px 60px rgba(0,0,0,.25);
+      box-shadow: 0 24px 70px rgba(0,0,0,.28);
       text-align: center;
+      animation: subir .35s ease;
     }
 
-    .brand {
-      font-size: 34px;
-      font-weight: 900;
-      letter-spacing: 4px;
-      color: var(--azul);
-      margin-bottom: 4px;
+    @keyframes subir {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    .brand-sub {
-      letter-spacing: 8px;
-      font-size: 12px;
-      color: var(--azul);
-      margin-bottom: 16px;
-    }
-
-    .flag {
-      height: 16px;
-      display: flex;
-      margin: 0 auto 22px;
-      max-width: 190px;
-    }
-
-    .flag div:nth-child(1) {
-      flex: 1;
-      background: var(--azul);
-    }
-
-    .flag div:nth-child(2) {
-      width: 22px;
-      background: var(--amarelo);
-      clip-path: polygon(0 0, 100% 50%, 0 100%);
-    }
-
-    .flag div:nth-child(3) {
-      flex: 1.6;
-      background: var(--vermelho);
+    .login-logo {
+      width: 220px;
+      max-width: 80%;
+      display: block;
+      margin: 0 auto 16px;
+      border-radius: 18px;
     }
 
     .intro {
       color: var(--cinza);
       font-size: 14px;
-      line-height: 1.5;
-      margin-bottom: 22px;
+      line-height: 1.45;
+      margin: 12px auto 22px;
+      max-width: 330px;
     }
 
     input {
       width: 100%;
       padding: 15px;
-      border: 1px solid #d7e0e4;
+      border: 1px solid #d7e1e5;
       border-radius: 14px;
       font-size: 18px;
       text-align: center;
       letter-spacing: 2px;
       outline: none;
       margin-bottom: 14px;
+      color: var(--texto);
+      background: white;
     }
 
     input:focus {
       border-color: var(--azul);
-      box-shadow: 0 0 0 3px rgba(0, 56, 73, .12);
+      box-shadow: 0 0 0 3px rgba(0,56,73,.12);
     }
 
     button {
       width: 100%;
       border: none;
       background: var(--azul);
-      color: #fff;
+      color: white;
       padding: 15px;
       border-radius: 14px;
       font-size: 16px;
@@ -128,14 +114,14 @@
     }
 
     button:hover {
-      background: var(--azul-2);
+      background: var(--azul2);
       transform: translateY(-1px);
     }
 
     .error {
-      margin-top: 14px;
       color: var(--vermelho);
       font-size: 14px;
+      margin-top: 14px;
       min-height: 20px;
     }
 
@@ -143,7 +129,7 @@
       display: none;
       margin-top: 14px;
       color: var(--azul);
-      font-weight: 700;
+      font-weight: 800;
     }
 
     .app {
@@ -153,28 +139,20 @@
 
     .sidebar {
       width: 270px;
-      background: var(--azul);
-      color: white;
       position: fixed;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      padding: 24px 18px;
-      z-index: 10;
+      inset: 0 auto 0 0;
+      background: var(--azul);
+      padding: 22px 16px;
+      color: white;
+      z-index: 20;
+      box-shadow: 8px 0 30px rgba(0,0,0,.12);
     }
 
     .side-logo {
-      font-size: 24px;
-      font-weight: 900;
-      letter-spacing: 3px;
-      margin-bottom: 4px;
-    }
-
-    .side-sub {
-      font-size: 10px;
-      letter-spacing: 5px;
-      opacity: .85;
-      margin-bottom: 26px;
+      width: 150px;
+      display: block;
+      margin: 0 auto 22px;
+      border-radius: 14px;
     }
 
     .menu-btn {
@@ -185,10 +163,10 @@
       margin-bottom: 8px;
       border-radius: 14px;
       background: rgba(255,255,255,.08);
-      color: white;
       border: 1px solid rgba(255,255,255,.08);
+      color: white;
+      font-weight: 800;
       cursor: pointer;
-      font-weight: 700;
     }
 
     .menu-btn.active {
@@ -198,23 +176,35 @@
 
     .logout {
       position: absolute;
-      bottom: 18px;
-      left: 18px;
-      right: 18px;
-      background: rgba(228,0,58,.9);
+      left: 16px;
+      right: 16px;
+      bottom: 16px;
+      width: auto;
+      background: var(--vermelho);
     }
 
     .content {
       margin-left: 270px;
-      padding: 30px;
+      padding: 28px;
+    }
+
+    .mobile-menu {
+      display: none;
+      background: var(--azul);
+      color: white;
+      padding: 13px 15px;
+      border-radius: 14px;
+      margin-bottom: 16px;
+      font-weight: 900;
+      cursor: pointer;
     }
 
     .topbar {
       background: white;
       border-radius: 22px;
       padding: 22px;
-      margin-bottom: 22px;
-      box-shadow: 0 10px 25px rgba(0,0,0,.05);
+      margin-bottom: 18px;
+      box-shadow: 0 10px 26px rgba(0,0,0,.06);
       display: flex;
       justify-content: space-between;
       gap: 16px;
@@ -222,13 +212,14 @@
     }
 
     .topbar h1 {
-      font-size: 26px;
       color: var(--azul);
+      font-size: 25px;
+      margin-bottom: 4px;
     }
 
     .topbar p {
       color: var(--cinza);
-      margin-top: 4px;
+      font-size: 14px;
     }
 
     .badge {
@@ -236,36 +227,8 @@
       color: var(--azul);
       padding: 10px 14px;
       border-radius: 999px;
-      font-weight: 800;
-      white-space: nowrap;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 16px;
-    }
-
-    .card {
-      background: var(--card);
-      border-radius: 22px;
-      padding: 22px;
-      box-shadow: 0 10px 25px rgba(0,0,0,.05);
-    }
-
-    .card-title {
-      color: var(--cinza);
-      font-size: 13px;
-      text-transform: uppercase;
-      font-weight: 800;
-      letter-spacing: .5px;
-      margin-bottom: 8px;
-    }
-
-    .big {
-      font-size: 34px;
-      color: var(--azul);
       font-weight: 900;
+      white-space: nowrap;
     }
 
     .section {
@@ -276,8 +239,38 @@
       display: block;
     }
 
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 22px;
+      padding: 22px;
+      box-shadow: 0 10px 26px rgba(0,0,0,.06);
+      min-height: 118px;
+    }
+
+    .card-title {
+      color: var(--cinza);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    .big {
+      color: var(--azul);
+      font-size: 34px;
+      font-weight: 900;
+      word-break: break-word;
+    }
+
     .ranking {
-      margin-top: 16px;
+      margin-top: 4px;
     }
 
     .rank-row {
@@ -285,13 +278,14 @@
       justify-content: space-between;
       gap: 12px;
       padding: 13px 0;
-      border-bottom: 1px solid #eef2f4;
-      font-weight: 700;
+      border-bottom: 1px solid #edf2f4;
+      font-weight: 800;
+      font-size: 14px;
     }
 
     .rank-row span {
-      color: var(--cinza);
-      font-weight: 800;
+      color: var(--azul);
+      font-weight: 900;
     }
 
     .soon {
@@ -302,26 +296,14 @@
     .soon h2 {
       color: var(--azul);
       font-size: 30px;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     .soon p {
       color: var(--cinza);
-      line-height: 1.5;
     }
 
-    .mobile-menu {
-      display: none;
-      background: var(--azul);
-      color: #fff;
-      border-radius: 14px;
-      padding: 12px 14px;
-      margin-bottom: 16px;
-      font-weight: 800;
-      cursor: pointer;
-    }
-
-    @media (max-width: 850px) {
+    @media (max-width: 900px) {
       .sidebar {
         transform: translateX(-100%);
         transition: .2s ease;
@@ -350,29 +332,16 @@
 
       .badge {
         display: inline-block;
-        margin-top: 14px;
+        margin-top: 12px;
       }
     }
   </style>
-
-  <link rel="manifest" href="manifest.json" />
-  <link rel="icon" type="image/png" href="favicon.png" />
-  <meta name="theme-color" content="#003849" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-title" content="Paca Plus" />
-  <link rel="apple-touch-icon" href="icons/icon-192.png" />
-
 </head>
-<body>
 
+<body>
   <main id="loginPage" class="login-page">
     <section class="login-card">
-      <div class="brand">Paca Plus</div>
-      <div class="brand-sub">PJ1</div>
-
-      <div class="flag">
-        <div></div><div></div><div></div>
-      </div>
+      <img class="login-logo" src="logo-paca-plus.png" alt="Paca Plus" />
 
       <p class="intro">
         Aplicativo desenvolvido pela equipe PJ1 para auxiliar e incentivar os corretores.
@@ -388,8 +357,7 @@
 
   <main id="app" class="app">
     <aside id="sidebar" class="sidebar">
-      <div class="side-logo">Paca Plus</div>
-      <div class="side-sub">PJ1</div>
+      <img class="side-logo" src="logo-paca-plus.png" alt="Paca Plus" />
 
       <button class="menu-btn active" onclick="abrirSecao('perfil', this)">Meu perfil</button>
       <button class="menu-btn" onclick="abrirSecao('pontuacao', this)">Pontuação</button>
@@ -492,12 +460,14 @@
   </main>
 
   <script>
-    // COLE A URL DO SEU WEB APP AQUI
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwDIA9ytArGjwvRjVHM4KvFkydLDPfASf3Tgphk7f7S3P1fAkzFl77KczakIf_rCi02GQ/exec";
-
-    const savedId = localStorage.getItem("paca_app_id");
+    const savedId = localStorage.getItem("paca_plus_id");
 
     window.addEventListener("load", () => {
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("service-worker.js").catch(() => {});
+      }
+
       if (savedId) {
         document.getElementById("idInput").value = savedId;
         entrar(true);
@@ -518,78 +488,76 @@
 
       loading.style.display = "block";
 
-      jsonp(`${SCRIPT_URL}?action=login&id=${encodeURIComponent(id)}`, (res) => {
-        loading.style.display = "none";
+      const callbackName = "pacaPlusCallback_" + Date.now();
 
-        if (!res.success) {
-          if (!auto) error.textContent = res.message || "Não foi possível entrar.";
-          localStorage.removeItem("paca_app_id");
+      window[callbackName] = function(res) {
+        loading.style.display = "none";
+        delete window[callbackName];
+
+        const old = document.getElementById(callbackName);
+        if (old) old.remove();
+
+        if (!res || !res.success) {
+          if (!auto) error.textContent = (res && res.message) ? res.message : "Não foi possível entrar.";
+          localStorage.removeItem("paca_plus_id");
           return;
         }
 
-        localStorage.setItem("paca_app_id", id);
+        localStorage.setItem("paca_plus_id", id);
         carregarApp(res);
-      });
-    }
-
-    function jsonp(url, callback) {
-      const callbackName = "jsonp_callback_" + Math.round(100000 * Math.random());
-
-      window[callbackName] = function(data) {
-        delete window[callbackName];
-        document.body.removeChild(script);
-        callback(data);
       };
 
       const script = document.createElement("script");
-      script.src = url + "&callback=" + callbackName;
+      script.id = callbackName;
+      script.src = SCRIPT_URL + "?action=login&id=" + encodeURIComponent(id) + "&callback=" + callbackName + "&v=" + Date.now();
 
       script.onerror = function() {
-        document.getElementById("loading").style.display = "none";
-        document.getElementById("error").textContent = "Erro de conexão com a planilha.";
+        loading.style.display = "none";
+        if (!auto) error.textContent = "Erro de conexão com a planilha.";
+        localStorage.removeItem("paca_plus_id");
       };
 
       document.body.appendChild(script);
     }
 
     function carregarApp(data) {
-      const u = data.usuario;
-      const d = data.dashboard;
+      const u = data.usuario || {};
+      const d = data.dashboard || {};
 
       document.getElementById("loginPage").style.display = "none";
       document.getElementById("app").style.display = "block";
 
-      document.getElementById("welcome").textContent = `Olá, ${u.nome}`;
-      document.getElementById("idBadge").textContent = `ID ${u.id}`;
-      document.getElementById("nome").textContent = u.nome;
-      document.getElementById("creci").textContent = u.creci;
-      document.getElementById("userId").textContent = u.id;
-      document.getElementById("acessos").textContent = u.acessos;
+      document.getElementById("welcome").textContent = "Olá, " + (u.nome || "corretor");
+      document.getElementById("idBadge").textContent = "ID " + (u.id || "-");
+      document.getElementById("nome").textContent = u.nome || "-";
+      document.getElementById("creci").textContent = u.creci || "Não informado";
+      document.getElementById("userId").textContent = u.id || "-";
+      document.getElementById("acessos").textContent = u.acessos || 0;
 
-      document.getElementById("pontos").textContent = d.pontos_totais;
-      document.getElementById("plantaoMp").textContent = d.plantao_mp;
-      document.getElementById("plantaoPi").textContent = d.plantao_pi;
-      document.getElementById("acao").textContent = d.acao;
-      document.getElementById("corujao").textContent = d.corujao;
-      document.getElementById("conteudo").textContent = d.conteudo;
-      document.getElementById("roleta").textContent = d.roleta;
+      document.getElementById("pontos").textContent = d.pontos_totais || 0;
+      document.getElementById("plantaoMp").textContent = d.plantao_mp || 0;
+      document.getElementById("plantaoPi").textContent = d.plantao_pi || 0;
+      document.getElementById("acao").textContent = d.acao || 0;
+      document.getElementById("corujao").textContent = d.corujao || 0;
+      document.getElementById("conteudo").textContent = d.conteudo || 0;
+      document.getElementById("roleta").textContent = d.roleta || 0;
 
-      montarRanking("rankingPontos", data.rankings.topPontos, "pontos");
-      montarRanking("rankingPlantoes", data.rankings.topPlantoes, "plantoes");
+      montarRanking("rankingPontos", data.rankings && data.rankings.topPontos, "pontos");
+      montarRanking("rankingPlantoes", data.rankings && data.rankings.topPlantoes, "plantoes");
     }
 
     function montarRanking(elementId, lista, campo) {
       const el = document.getElementById(elementId);
 
       if (!lista || !lista.length) {
-        el.innerHTML = "<p>Nenhum dado disponível.</p>";
+        el.innerHTML = "<p style='color:#647780'>Nenhum dado disponível.</p>";
         return;
       }
 
       el.innerHTML = lista.map((item, index) => `
         <div class="rank-row">
-          <div>${index + 1}º ${item.nome}</div>
-          <span>${item[campo]}</span>
+          <div>${index + 1}º ${item.nome || "Corretor"}</div>
+          <span>${item[campo] || 0}</span>
         </div>
       `).join("");
     }
@@ -601,7 +569,7 @@
       document.getElementById(id).classList.add("active");
       btn.classList.add("active");
 
-      if (window.innerWidth <= 850) {
+      if (window.innerWidth <= 900) {
         document.getElementById("sidebar").classList.remove("open");
       }
     }
@@ -611,18 +579,9 @@
     }
 
     function sair() {
-      localStorage.removeItem("paca_app_id");
+      localStorage.removeItem("paca_plus_id");
       location.reload();
     }
   </script>
-
-  <script>
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", () => {
-        navigator.serviceWorker.register("service-worker.js");
-      });
-    }
-  </script>
-
 </body>
 </html>
