@@ -1,0 +1,611 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PACA APP</title>
+
+  <style>
+    :root {
+      --azul: #003849;
+      --azul-2: #00506a;
+      --vermelho: #e4003a;
+      --amarelo: #ffb800;
+      --fundo: #f3f6f8;
+      --card: #ffffff;
+      --texto: #102a33;
+      --cinza: #6b7b83;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--fundo);
+      color: var(--texto);
+    }
+
+    .login-page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background:
+        radial-gradient(circle at top right, rgba(228, 0, 58, .10), transparent 35%),
+        linear-gradient(135deg, #003849, #07222c);
+    }
+
+    .login-card {
+      width: 100%;
+      max-width: 420px;
+      background: #fff;
+      border-radius: 24px;
+      padding: 30px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.25);
+      text-align: center;
+    }
+
+    .brand {
+      font-size: 34px;
+      font-weight: 900;
+      letter-spacing: 4px;
+      color: var(--azul);
+      margin-bottom: 4px;
+    }
+
+    .brand-sub {
+      letter-spacing: 8px;
+      font-size: 12px;
+      color: var(--azul);
+      margin-bottom: 16px;
+    }
+
+    .flag {
+      height: 16px;
+      display: flex;
+      margin: 0 auto 22px;
+      max-width: 190px;
+    }
+
+    .flag div:nth-child(1) {
+      flex: 1;
+      background: var(--azul);
+    }
+
+    .flag div:nth-child(2) {
+      width: 22px;
+      background: var(--amarelo);
+      clip-path: polygon(0 0, 100% 50%, 0 100%);
+    }
+
+    .flag div:nth-child(3) {
+      flex: 1.6;
+      background: var(--vermelho);
+    }
+
+    .intro {
+      color: var(--cinza);
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 22px;
+    }
+
+    input {
+      width: 100%;
+      padding: 15px;
+      border: 1px solid #d7e0e4;
+      border-radius: 14px;
+      font-size: 18px;
+      text-align: center;
+      letter-spacing: 2px;
+      outline: none;
+      margin-bottom: 14px;
+    }
+
+    input:focus {
+      border-color: var(--azul);
+      box-shadow: 0 0 0 3px rgba(0, 56, 73, .12);
+    }
+
+    button {
+      width: 100%;
+      border: none;
+      background: var(--azul);
+      color: #fff;
+      padding: 15px;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: .2s ease;
+    }
+
+    button:hover {
+      background: var(--azul-2);
+      transform: translateY(-1px);
+    }
+
+    .error {
+      margin-top: 14px;
+      color: var(--vermelho);
+      font-size: 14px;
+      min-height: 20px;
+    }
+
+    .loading {
+      display: none;
+      margin-top: 14px;
+      color: var(--azul);
+      font-weight: 700;
+    }
+
+    .app {
+      display: none;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: 270px;
+      background: var(--azul);
+      color: white;
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      padding: 24px 18px;
+      z-index: 10;
+    }
+
+    .side-logo {
+      font-size: 24px;
+      font-weight: 900;
+      letter-spacing: 3px;
+      margin-bottom: 4px;
+    }
+
+    .side-sub {
+      font-size: 10px;
+      letter-spacing: 5px;
+      opacity: .85;
+      margin-bottom: 26px;
+    }
+
+    .menu-btn {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 14px 16px;
+      margin-bottom: 8px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.08);
+      color: white;
+      border: 1px solid rgba(255,255,255,.08);
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .menu-btn.active {
+      background: white;
+      color: var(--azul);
+    }
+
+    .logout {
+      position: absolute;
+      bottom: 18px;
+      left: 18px;
+      right: 18px;
+      background: rgba(228,0,58,.9);
+    }
+
+    .content {
+      margin-left: 270px;
+      padding: 30px;
+    }
+
+    .topbar {
+      background: white;
+      border-radius: 22px;
+      padding: 22px;
+      margin-bottom: 22px;
+      box-shadow: 0 10px 25px rgba(0,0,0,.05);
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .topbar h1 {
+      font-size: 26px;
+      color: var(--azul);
+    }
+
+    .topbar p {
+      color: var(--cinza);
+      margin-top: 4px;
+    }
+
+    .badge {
+      background: rgba(0,56,73,.08);
+      color: var(--azul);
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 22px;
+      padding: 22px;
+      box-shadow: 0 10px 25px rgba(0,0,0,.05);
+    }
+
+    .card-title {
+      color: var(--cinza);
+      font-size: 13px;
+      text-transform: uppercase;
+      font-weight: 800;
+      letter-spacing: .5px;
+      margin-bottom: 8px;
+    }
+
+    .big {
+      font-size: 34px;
+      color: var(--azul);
+      font-weight: 900;
+    }
+
+    .section {
+      display: none;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    .ranking {
+      margin-top: 16px;
+    }
+
+    .rank-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 13px 0;
+      border-bottom: 1px solid #eef2f4;
+      font-weight: 700;
+    }
+
+    .rank-row span {
+      color: var(--cinza);
+      font-weight: 800;
+    }
+
+    .soon {
+      text-align: center;
+      padding: 70px 20px;
+    }
+
+    .soon h2 {
+      color: var(--azul);
+      font-size: 30px;
+      margin-bottom: 10px;
+    }
+
+    .soon p {
+      color: var(--cinza);
+      line-height: 1.5;
+    }
+
+    .mobile-menu {
+      display: none;
+      background: var(--azul);
+      color: #fff;
+      border-radius: 14px;
+      padding: 12px 14px;
+      margin-bottom: 16px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    @media (max-width: 850px) {
+      .sidebar {
+        transform: translateX(-100%);
+        transition: .2s ease;
+      }
+
+      .sidebar.open {
+        transform: translateX(0);
+      }
+
+      .content {
+        margin-left: 0;
+        padding: 18px;
+      }
+
+      .mobile-menu {
+        display: block;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar {
+        display: block;
+      }
+
+      .badge {
+        display: inline-block;
+        margin-top: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <main id="loginPage" class="login-page">
+    <section class="login-card">
+      <div class="brand">PACAEMBU</div>
+      <div class="brand-sub">CONSTRUTORA</div>
+
+      <div class="flag">
+        <div></div><div></div><div></div>
+      </div>
+
+      <p class="intro">
+        Aplicativo desenvolvido pela equipe PJ1 para auxiliar e incentivar os corretores.
+      </p>
+
+      <input id="idInput" type="text" inputmode="numeric" placeholder="Digite seu ID" />
+      <button onclick="entrar()">Entrar</button>
+
+      <div id="loading" class="loading">Entrando...</div>
+      <div id="error" class="error"></div>
+    </section>
+  </main>
+
+  <main id="app" class="app">
+    <aside id="sidebar" class="sidebar">
+      <div class="side-logo">PACA APP</div>
+      <div class="side-sub">PJ1</div>
+
+      <button class="menu-btn active" onclick="abrirSecao('perfil', this)">Meu perfil</button>
+      <button class="menu-btn" onclick="abrirSecao('pontuacao', this)">Pontuação</button>
+      <button class="menu-btn" onclick="abrirSecao('loja', this)">Loja de resgate</button>
+
+      <button class="logout" onclick="sair()">Sair</button>
+    </aside>
+
+    <section class="content">
+      <div class="mobile-menu" onclick="toggleMenu()">☰ Menu</div>
+
+      <div class="topbar">
+        <div>
+          <h1 id="welcome">Bem-vindo</h1>
+          <p>Painel individual do corretor</p>
+        </div>
+        <div id="idBadge" class="badge">ID</div>
+      </div>
+
+      <section id="perfil" class="section active">
+        <div class="grid">
+          <div class="card">
+            <div class="card-title">Nome completo</div>
+            <div id="nome" class="big">-</div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">CRECI</div>
+            <div id="creci" class="big">-</div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">ID de acesso</div>
+            <div id="userId" class="big">-</div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">Acessos</div>
+            <div id="acessos" class="big">0</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="pontuacao" class="section">
+        <div class="grid">
+          <div class="card">
+            <div class="card-title">Pontos totais</div>
+            <div id="pontos" class="big">0</div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">Plantão MP</div>
+            <div id="plantaoMp" class="big">0</div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">Plantão PI</div>
+            <div id="plantaoPi" class="big">0</div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">Ações</div>
+            <div id="acao" class="big">0</div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">Corujões</div>
+            <div id="corujao" class="big">0</div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">Conteúdos</div>
+            <div id="conteudo" class="big">0</div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">Roletas</div>
+            <div id="roleta" class="big">0</div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">Top 5 pontos</div>
+            <div id="rankingPontos" class="ranking"></div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">Top 5 plantões</div>
+            <div id="rankingPlantoes" class="ranking"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="loja" class="section">
+        <div class="card soon">
+          <h2>Loja de resgate</h2>
+          <p>Disponível em breve.</p>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script>
+    // COLE A URL DO SEU WEB APP AQUI
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwDIA9ytArGjwvRjVHM4KvFkydLDPfASf3Tgphk7f7S3P1fAkzFl77KczakIf_rCi02GQ/exec";
+
+    const savedId = localStorage.getItem("paca_app_id");
+
+    window.addEventListener("load", () => {
+      if (savedId) {
+        document.getElementById("idInput").value = savedId;
+        entrar(true);
+      }
+    });
+
+    function entrar(auto = false) {
+      const id = document.getElementById("idInput").value.replace(/\D/g, "").trim();
+      const error = document.getElementById("error");
+      const loading = document.getElementById("loading");
+
+      error.textContent = "";
+
+      if (!id) {
+        error.textContent = "Digite seu ID de acesso.";
+        return;
+      }
+
+      loading.style.display = "block";
+
+      jsonp(`${SCRIPT_URL}?action=login&id=${encodeURIComponent(id)}`, (res) => {
+        loading.style.display = "none";
+
+        if (!res.success) {
+          if (!auto) error.textContent = res.message || "Não foi possível entrar.";
+          localStorage.removeItem("paca_app_id");
+          return;
+        }
+
+        localStorage.setItem("paca_app_id", id);
+        carregarApp(res);
+      });
+    }
+
+    function jsonp(url, callback) {
+      const callbackName = "jsonp_callback_" + Math.round(100000 * Math.random());
+
+      window[callbackName] = function(data) {
+        delete window[callbackName];
+        document.body.removeChild(script);
+        callback(data);
+      };
+
+      const script = document.createElement("script");
+      script.src = url + "&callback=" + callbackName;
+
+      script.onerror = function() {
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("error").textContent = "Erro de conexão com a planilha.";
+      };
+
+      document.body.appendChild(script);
+    }
+
+    function carregarApp(data) {
+      const u = data.usuario;
+      const d = data.dashboard;
+
+      document.getElementById("loginPage").style.display = "none";
+      document.getElementById("app").style.display = "block";
+
+      document.getElementById("welcome").textContent = `Olá, ${u.nome}`;
+      document.getElementById("idBadge").textContent = `ID ${u.id}`;
+      document.getElementById("nome").textContent = u.nome;
+      document.getElementById("creci").textContent = u.creci;
+      document.getElementById("userId").textContent = u.id;
+      document.getElementById("acessos").textContent = u.acessos;
+
+      document.getElementById("pontos").textContent = d.pontos_totais;
+      document.getElementById("plantaoMp").textContent = d.plantao_mp;
+      document.getElementById("plantaoPi").textContent = d.plantao_pi;
+      document.getElementById("acao").textContent = d.acao;
+      document.getElementById("corujao").textContent = d.corujao;
+      document.getElementById("conteudo").textContent = d.conteudo;
+      document.getElementById("roleta").textContent = d.roleta;
+
+      montarRanking("rankingPontos", data.rankings.topPontos, "pontos");
+      montarRanking("rankingPlantoes", data.rankings.topPlantoes, "plantoes");
+    }
+
+    function montarRanking(elementId, lista, campo) {
+      const el = document.getElementById(elementId);
+
+      if (!lista || !lista.length) {
+        el.innerHTML = "<p>Nenhum dado disponível.</p>";
+        return;
+      }
+
+      el.innerHTML = lista.map((item, index) => `
+        <div class="rank-row">
+          <div>${index + 1}º ${item.nome}</div>
+          <span>${item[campo]}</span>
+        </div>
+      `).join("");
+    }
+
+    function abrirSecao(id, btn) {
+      document.querySelectorAll(".section").forEach(sec => sec.classList.remove("active"));
+      document.querySelectorAll(".menu-btn").forEach(b => b.classList.remove("active"));
+
+      document.getElementById(id).classList.add("active");
+      btn.classList.add("active");
+
+      if (window.innerWidth <= 850) {
+        document.getElementById("sidebar").classList.remove("open");
+      }
+    }
+
+    function toggleMenu() {
+      document.getElementById("sidebar").classList.toggle("open");
+    }
+
+    function sair() {
+      localStorage.removeItem("paca_app_id");
+      location.reload();
+    }
+  </script>
+</body>
+</html>
