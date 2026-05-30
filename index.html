@@ -7,7 +7,6 @@
 
   <title>Paca Plus</title>
 
-  <!-- PWA / ÍCONES NA RAIZ DO REPOSITÓRIO -->
   <link rel="manifest" href="manifest.json" />
   <link rel="icon" type="image/png" href="icon-192.png" />
   <link rel="apple-touch-icon" href="apple-touch-icon.png" />
@@ -18,13 +17,12 @@
   <style>
     :root {
       --azul: #003849;
-      --azul2: #00495f;
+      --azul-escuro: #001f2b;
       --vermelho: #e4003a;
       --amarelo: #ffbf00;
-      --fundo: #f4f7f9;
       --card: #ffffff;
       --texto: #062b36;
-      --cinza: #647780;
+      --cinza: #60737c;
     }
 
     * {
@@ -36,57 +34,111 @@
 
     body {
       min-height: 100vh;
-      background: var(--fundo);
+      background: #003849;
       color: var(--texto);
     }
 
     .login-page {
       min-height: 100vh;
+      position: relative;
+      overflow: hidden;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 22px;
+      padding: 28px 18px;
       background:
-        radial-gradient(circle at 20% 20%, rgba(255,255,255,.08), transparent 25%),
-        linear-gradient(135deg, #003849, #05242d 65%, #002b37);
+        radial-gradient(circle at 50% 35%, rgba(255,255,255,.08), transparent 28%),
+        linear-gradient(135deg, #003849 0%, #001f2b 72%);
     }
 
-    .login-card {
-      width: 100%;
-      max-width: 430px;
-      background: white;
-      border-radius: 24px;
-      padding: 30px;
-      box-shadow: 0 24px 70px rgba(0,0,0,.28);
-      text-align: center;
+    .login-page::before {
+      content: "";
+      position: absolute;
+      top: -180px;
+      left: -90px;
+      width: 58vw;
+      height: 360px;
+      background: var(--vermelho);
+      transform: rotate(-22deg);
+      transform-origin: left top;
+      z-index: 0;
+    }
+
+    .login-page::after {
+      content: "";
+      position: absolute;
+      right: -150px;
+      bottom: -160px;
+      width: 60vw;
+      height: 340px;
+      background: var(--amarelo);
+      transform: rotate(-23deg);
+      transform-origin: right bottom;
+      z-index: 0;
     }
 
     .login-logo {
-      width: 230px;
-      max-width: 85%;
+      position: relative;
+      z-index: 1;
+      width: min(430px, 78vw);
+      max-height: 260px;
+      object-fit: contain;
       display: block;
-      margin: 0 auto 18px;
-      border-radius: 18px;
+      margin: 0 auto 10px;
+      filter: drop-shadow(0 22px 28px rgba(0,0,0,.35));
+    }
+
+    .login-card {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 580px;
+      background: white;
+      border-radius: 24px;
+      padding: 34px 36px 30px;
+      box-shadow: 0 26px 80px rgba(0,0,0,.34);
+      text-align: center;
+    }
+
+    .login-title {
+      font-size: 38px;
+      color: var(--texto);
+      font-weight: 900;
+      margin-bottom: 16px;
+      letter-spacing: 1px;
     }
 
     .intro {
-      color: var(--cinza);
-      font-size: 14px;
+      color: var(--texto);
+      font-size: 18px;
       line-height: 1.45;
-      margin: 12px auto 22px;
-      max-width: 330px;
+      margin: 0 auto 28px;
+      max-width: 460px;
+    }
+
+    .input-wrap {
+      position: relative;
+      margin-bottom: 18px;
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 22px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 24px;
+      color: var(--texto);
     }
 
     input {
       width: 100%;
-      padding: 15px;
-      border: 1px solid #d7e1e5;
-      border-radius: 14px;
-      font-size: 18px;
-      text-align: center;
-      letter-spacing: 2px;
+      padding: 18px 18px 18px 62px;
+      border: 1px solid #d6e0e5;
+      border-radius: 16px;
+      font-size: 22px;
+      letter-spacing: 1px;
       outline: none;
-      margin-bottom: 14px;
       color: var(--texto);
       background: white;
     }
@@ -99,38 +151,50 @@
     button {
       width: 100%;
       border: none;
-      background: var(--azul);
+      background: linear-gradient(135deg, #003849, #001f2b);
       color: white;
-      padding: 15px;
-      border-radius: 14px;
-      font-size: 16px;
-      font-weight: 800;
+      padding: 19px;
+      border-radius: 16px;
+      font-size: 22px;
+      font-weight: 900;
       cursor: pointer;
       transition: .2s ease;
+      box-shadow: 0 10px 18px rgba(0,0,0,.12);
     }
 
     button:hover {
-      background: var(--azul2);
       transform: translateY(-1px);
+      filter: brightness(1.08);
     }
 
     .error {
-      color: var(--vermelho);
-      font-size: 14px;
-      margin-top: 14px;
-      min-height: 20px;
+      color: #e00000;
+      font-size: 18px;
+      margin-top: 20px;
+      min-height: 24px;
     }
 
     .loading {
       display: none;
-      margin-top: 14px;
       color: var(--azul);
-      font-weight: 800;
+      font-weight: 900;
+      margin-top: 18px;
+      font-size: 16px;
+    }
+
+    .version {
+      position: relative;
+      z-index: 1;
+      margin-top: 26px;
+      color: rgba(255,255,255,.78);
+      font-size: 18px;
+      letter-spacing: .3px;
     }
 
     .app {
       display: none;
       min-height: 100vh;
+      background: #f4f7f9;
     }
 
     .sidebar {
@@ -145,7 +209,7 @@
     }
 
     .side-logo {
-      width: 150px;
+      width: 160px;
       display: block;
       margin: 0 auto 22px;
       border-radius: 14px;
@@ -177,6 +241,8 @@
       bottom: 16px;
       width: auto;
       background: var(--vermelho);
+      font-size: 16px;
+      padding: 14px;
     }
 
     .content {
@@ -300,6 +366,48 @@
     }
 
     @media (max-width: 900px) {
+      .login-page {
+        justify-content: flex-start;
+        padding-top: 38px;
+      }
+
+      .login-logo {
+        width: min(330px, 86vw);
+        margin-top: 8px;
+      }
+
+      .login-card {
+        max-width: 92vw;
+        padding: 26px 22px;
+      }
+
+      .login-title {
+        font-size: 32px;
+      }
+
+      .intro {
+        font-size: 16px;
+      }
+
+      input {
+        font-size: 18px;
+      }
+
+      button {
+        font-size: 19px;
+      }
+
+      .login-page::before {
+        width: 95vw;
+        height: 250px;
+        top: -140px;
+      }
+
+      .login-page::after {
+        width: 105vw;
+        height: 250px;
+      }
+
       .sidebar {
         transform: translateX(-100%);
         transition: .2s ease;
@@ -336,26 +444,32 @@
 
 <body>
   <main id="loginPage" class="login-page">
+    <img class="login-logo" src="logo-paca-plus.png?v=001" alt="Paca Plus" />
+
     <section class="login-card">
-      <!-- LOGO NA RAIZ -->
-      <img class="login-logo" src="logo-paca-plus.png" alt="Paca Plus" />
+      <div class="login-title">PJ2</div>
 
       <p class="intro">
-        Aplicativo desenvolvido pela equipe PJ1 para auxiliar e incentivar os corretores.
+        Aplicativo desenvolvido pela equipe PJ2 para auxiliar e incentivar os corretores.
       </p>
 
-      <input id="idInput" type="text" inputmode="numeric" placeholder="Digite seu ID" />
+      <div class="input-wrap">
+        <div class="input-icon">♙</div>
+        <input id="idInput" type="text" inputmode="numeric" placeholder="Digite seu ID" />
+      </div>
+
       <button onclick="entrar()">Entrar</button>
 
       <div id="loading" class="loading">Entrando...</div>
       <div id="error" class="error"></div>
     </section>
+
+    <div class="version">Paca Plus V.001.</div>
   </main>
 
   <main id="app" class="app">
     <aside id="sidebar" class="sidebar">
-      <!-- LOGO NA RAIZ -->
-      <img class="side-logo" src="logo-paca-plus.png" alt="Paca Plus" />
+      <img class="side-logo" src="logo-paca-plus.png?v=001" alt="Paca Plus" />
 
       <button class="menu-btn active" onclick="abrirSecao('perfil', this)">Meu perfil</button>
       <button class="menu-btn" onclick="abrirSecao('pontuacao', this)">Pontuação</button>
