@@ -1,7 +1,7 @@
 {
   "name": "Paca Plus",
   "short_name": "Paca Plus",
-  "start_url": "./index.html",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#003849",
   "theme_color": "#003849",
