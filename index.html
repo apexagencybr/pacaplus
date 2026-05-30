@@ -1,17 +1,15 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <title>Paca Plus</title>
 
   <link rel="manifest" href="manifest.json" />
   <link rel="icon" type="image/png" href="icon-192.png" />
   <link rel="apple-touch-icon" href="apple-touch-icon.png" />
   <meta name="theme-color" content="#003849" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-title" content="Paca Plus" />
 
   <style>
     :root {
@@ -19,7 +17,6 @@
       --azul-escuro: #001f2b;
       --vermelho: #e4003a;
       --amarelo: #ffbf00;
-      --card: #ffffff;
       --texto: #062b36;
       --cinza: #60737c;
     }
@@ -126,7 +123,7 @@
       left: 22px;
       top: 50%;
       transform: translateY(-50%);
-      font-size: 24px;
+      font-size: 22px;
       color: var(--texto);
     }
 
@@ -142,11 +139,6 @@
       background: white;
     }
 
-    input:focus {
-      border-color: var(--azul);
-      box-shadow: 0 0 0 3px rgba(0,56,73,.12);
-    }
-
     button {
       width: 100%;
       border: none;
@@ -157,20 +149,15 @@
       font-size: 22px;
       font-weight: 900;
       cursor: pointer;
-      transition: .2s ease;
       box-shadow: 0 10px 18px rgba(0,0,0,.12);
-    }
-
-    button:hover {
-      transform: translateY(-1px);
-      filter: brightness(1.08);
     }
 
     .error {
       color: #e00000;
-      font-size: 18px;
-      margin-top: 20px;
+      font-size: 17px;
+      margin-top: 18px;
       min-height: 24px;
+      word-break: break-word;
     }
 
     .loading {
@@ -292,13 +279,8 @@
       white-space: nowrap;
     }
 
-    .section {
-      display: none;
-    }
-
-    .section.active {
-      display: block;
-    }
+    .section { display: none; }
+    .section.active { display: block; }
 
     .grid {
       display: grid;
@@ -330,10 +312,6 @@
       word-break: break-word;
     }
 
-    .ranking {
-      margin-top: 4px;
-    }
-
     .rank-row {
       display: flex;
       justify-content: space-between;
@@ -360,10 +338,6 @@
       margin-bottom: 8px;
     }
 
-    .soon p {
-      color: var(--cinza);
-    }
-
     @media (max-width: 900px) {
       .login-page {
         justify-content: flex-start;
@@ -380,77 +354,39 @@
         padding: 26px 22px;
       }
 
-      .login-title {
-        font-size: 32px;
-      }
-
-      .intro {
-        font-size: 16px;
-      }
-
-      input {
-        font-size: 18px;
-      }
-
-      button {
-        font-size: 19px;
-      }
-
-      .login-page::before {
-        width: 95vw;
-        height: 250px;
-        top: -140px;
-      }
-
-      .login-page::after {
-        width: 105vw;
-        height: 250px;
-      }
+      .login-title { font-size: 32px; }
+      .intro { font-size: 16px; }
+      input { font-size: 18px; }
+      button { font-size: 19px; }
 
       .sidebar {
         transform: translateX(-100%);
         transition: .2s ease;
       }
 
-      .sidebar.open {
-        transform: translateX(0);
-      }
+      .sidebar.open { transform: translateX(0); }
 
       .content {
         margin-left: 0;
         padding: 18px;
       }
 
-      .mobile-menu {
-        display: block;
-      }
-
-      .grid {
-        grid-template-columns: 1fr;
-      }
-
-      .topbar {
-        display: block;
-      }
-
-      .badge {
-        display: inline-block;
-        margin-top: 12px;
-      }
+      .mobile-menu { display: block; }
+      .grid { grid-template-columns: 1fr; }
+      .topbar { display: block; }
+      .badge { display: inline-block; margin-top: 12px; }
     }
   </style>
 </head>
 
 <body>
   <main id="loginPage" class="login-page">
-    <img class="login-logo" src="logo-paca-plus.png?v=001" alt="Paca Plus" />
+    <img class="login-logo" src="logo-paca-plus.png?v=002" alt="Paca Plus" />
 
     <section class="login-card">
       <div class="login-title">PJ2</div>
 
-      <p class="intro">
-        Aplicativo desenvolvido pela equipe PJ2 para auxiliar e incentivar os corretores.
-      </p>
+      <p class="intro">Aplicativo desenvolvido pela equipe PJ2 para auxiliar e incentivar os corretores.</p>
 
       <div class="input-wrap">
         <div class="input-icon">♙</div>
@@ -468,12 +404,11 @@
 
   <main id="app" class="app">
     <aside id="sidebar" class="sidebar">
-      <img class="side-logo" src="logo-paca-plus.png?v=001" alt="Paca Plus" />
+      <img class="side-logo" src="logo-paca-plus.png?v=002" alt="Paca Plus" />
 
       <button class="menu-btn active" onclick="abrirSecao('perfil', this)">Meu perfil</button>
       <button class="menu-btn" onclick="abrirSecao('pontuacao', this)">Pontuação</button>
       <button class="menu-btn" onclick="abrirSecao('loja', this)">Loja de resgate</button>
-
       <button class="logout" onclick="sair()">Sair</button>
     </aside>
 
@@ -490,74 +425,24 @@
 
       <section id="perfil" class="section active">
         <div class="grid">
-          <div class="card">
-            <div class="card-title">Nome completo</div>
-            <div id="nome" class="big">-</div>
-          </div>
-
-          <div class="card">
-            <div class="card-title">CRECI</div>
-            <div id="creci" class="big">-</div>
-          </div>
-
-          <div class="card">
-            <div class="card-title">ID de acesso</div>
-            <div id="userId" class="big">-</div>
-          </div>
-
-          <div class="card">
-            <div class="card-title">Acessos</div>
-            <div id="acessos" class="big">0</div>
-          </div>
+          <div class="card"><div class="card-title">Nome completo</div><div id="nome" class="big">-</div></div>
+          <div class="card"><div class="card-title">CRECI</div><div id="creci" class="big">-</div></div>
+          <div class="card"><div class="card-title">ID de acesso</div><div id="userId" class="big">-</div></div>
+          <div class="card"><div class="card-title">Acessos</div><div id="acessos" class="big">0</div></div>
         </div>
       </section>
 
       <section id="pontuacao" class="section">
         <div class="grid">
-          <div class="card">
-            <div class="card-title">Pontos totais</div>
-            <div id="pontos" class="big">0</div>
-          </div>
-
-          <div class="card">
-            <div class="card-title">Plantão MP</div>
-            <div id="plantaoMp" class="big">0</div>
-          </div>
-
-          <div class="card">
-            <div class="card-title">Plantão PI</div>
-            <div id="plantaoPi" class="big">0</div>
-          </div>
-
-          <div class="card">
-            <div class="card-title">Ações</div>
-            <div id="acao" class="big">0</div>
-          </div>
-
-          <div class="card">
-            <div class="card-title">Corujões</div>
-            <div id="corujao" class="big">0</div>
-          </div>
-
-          <div class="card">
-            <div class="card-title">Conteúdos</div>
-            <div id="conteudo" class="big">0</div>
-          </div>
-
-          <div class="card">
-            <div class="card-title">Roletas</div>
-            <div id="roleta" class="big">0</div>
-          </div>
-
-          <div class="card">
-            <div class="card-title">Top 5 pontos</div>
-            <div id="rankingPontos" class="ranking"></div>
-          </div>
-
-          <div class="card">
-            <div class="card-title">Top 5 plantões</div>
-            <div id="rankingPlantoes" class="ranking"></div>
-          </div>
+          <div class="card"><div class="card-title">Pontos totais</div><div id="pontos" class="big">0</div></div>
+          <div class="card"><div class="card-title">Plantão MP</div><div id="plantaoMp" class="big">0</div></div>
+          <div class="card"><div class="card-title">Plantão PI</div><div id="plantaoPi" class="big">0</div></div>
+          <div class="card"><div class="card-title">Ações</div><div id="acao" class="big">0</div></div>
+          <div class="card"><div class="card-title">Corujões</div><div id="corujao" class="big">0</div></div>
+          <div class="card"><div class="card-title">Conteúdos</div><div id="conteudo" class="big">0</div></div>
+          <div class="card"><div class="card-title">Roletas</div><div id="roleta" class="big">0</div></div>
+          <div class="card"><div class="card-title">Top 5 pontos</div><div id="rankingPontos"></div></div>
+          <div class="card"><div class="card-title">Top 5 plantões</div><div id="rankingPlantoes"></div></div>
         </div>
       </section>
 
@@ -595,7 +480,7 @@
 
       loading.style.display = "block";
 
-      const callbackName = "pacaPlusCallback_" + Date.now();
+      const callbackName = "pacaPlusCallback" + Date.now();
 
       window[callbackName] = function(res) {
         loading.style.display = "none";
@@ -616,11 +501,19 @@
 
       const script = document.createElement("script");
       script.id = callbackName;
-      script.src = SCRIPT_URL + "?action=login&id=" + encodeURIComponent(id) + "&callback=" + callbackName + "&v=" + Date.now();
+
+      // ORDEM IMPORTANTE: callback primeiro para evitar falha de redirecionamento/cache
+      script.src = SCRIPT_URL
+        + "?callback=" + encodeURIComponent(callbackName)
+        + "&action=login"
+        + "&id=" + encodeURIComponent(id)
+        + "&cache=" + Date.now();
 
       script.onerror = function() {
         loading.style.display = "none";
-        if (!auto) error.textContent = "Erro de conexão com a planilha.";
+        if (!auto) {
+          error.textContent = "Erro de conexão. Abra o link do Apps Script com callback=teste para conferir a implantação.";
+        }
         localStorage.removeItem("paca_plus_id");
       };
 
