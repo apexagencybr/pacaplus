@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Paca Plus</title>
 
   <link rel="manifest" href="manifest.json" />
@@ -381,7 +382,7 @@
 
 <body>
   <main id="loginPage" class="login-page">
-    <img class="login-logo" src="logo-paca-plus.png?v=002" alt="Paca Plus" />
+    <img class="login-logo" src="logo-paca-plus.png?v=003" alt="Paca Plus" />
 
     <section class="login-card">
       <div class="login-title">PJ2</div>
@@ -404,7 +405,7 @@
 
   <main id="app" class="app">
     <aside id="sidebar" class="sidebar">
-      <img class="side-logo" src="logo-paca-plus.png?v=002" alt="Paca Plus" />
+      <img class="side-logo" src="logo-paca-plus.png?v=003" alt="Paca Plus" />
 
       <button class="menu-btn active" onclick="abrirSecao('perfil', this)">Meu perfil</button>
       <button class="menu-btn" onclick="abrirSecao('pontuacao', this)">Pontuação</button>
@@ -484,37 +485,40 @@
 
       window[callbackName] = function(res) {
         loading.style.display = "none";
-        delete window[callbackName];
 
-        const old = document.getElementById(callbackName);
-        if (old) old.remove();
+        try {
+          delete window[callbackName];
 
-        if (!res || !res.success) {
-          if (!auto) error.textContent = (res && res.message) ? res.message : "Não foi possível entrar.";
-          localStorage.removeItem("paca_plus_id");
-          return;
+          const old = document.getElementById(callbackName);
+          if (old) old.remove();
+
+          if (!res || !res.success) {
+            error.textContent = (res && res.message) ? res.message : "ID não encontrado.";
+            localStorage.removeItem("paca_plus_id");
+            return;
+          }
+
+          localStorage.setItem("paca_plus_id", id);
+          carregarApp(res);
+        } catch(e) {
+          console.error(e);
+          error.textContent = "Erro ao processar resposta.";
         }
-
-        localStorage.setItem("paca_plus_id", id);
-        carregarApp(res);
       };
 
       const script = document.createElement("script");
       script.id = callbackName;
-
-      // ORDEM IMPORTANTE: callback primeiro para evitar falha de redirecionamento/cache
-      script.src = SCRIPT_URL
-        + "?callback=" + encodeURIComponent(callbackName)
-        + "&action=login"
-        + "&id=" + encodeURIComponent(id)
-        + "&cache=" + Date.now();
+      script.src =
+        SCRIPT_URL +
+        "?action=login" +
+        "&id=" + encodeURIComponent(id) +
+        "&callback=" + callbackName +
+        "&t=" + Date.now();
 
       script.onerror = function() {
         loading.style.display = "none";
-        if (!auto) {
-          error.textContent = "Erro de conexão. Abra o link do Apps Script com callback=teste para conferir a implantação.";
-        }
-        localStorage.removeItem("paca_plus_id");
+        error.textContent = "Não foi possível conectar ao Apps Script.";
+        console.error("Erro carregando:", script.src);
       };
 
       document.body.appendChild(script);
