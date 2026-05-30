@@ -4,10 +4,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Paca Plus</title>
 
+  <!-- PWA / ÍCONES NA RAIZ DO REPOSITÓRIO -->
   <link rel="manifest" href="manifest.json" />
-  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="icon" type="image/png" href="icon-192.png" />
   <link rel="apple-touch-icon" href="apple-touch-icon.png" />
   <meta name="theme-color" content="#003849" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -57,19 +59,13 @@
       padding: 30px;
       box-shadow: 0 24px 70px rgba(0,0,0,.28);
       text-align: center;
-      animation: subir .35s ease;
-    }
-
-    @keyframes subir {
-      from { opacity: 0; transform: translateY(14px); }
-      to { opacity: 1; transform: translateY(0); }
     }
 
     .login-logo {
-      width: 220px;
-      max-width: 80%;
+      width: 230px;
+      max-width: 85%;
       display: block;
-      margin: 0 auto 16px;
+      margin: 0 auto 18px;
       border-radius: 18px;
     }
 
@@ -341,6 +337,7 @@
 <body>
   <main id="loginPage" class="login-page">
     <section class="login-card">
+      <!-- LOGO NA RAIZ -->
       <img class="login-logo" src="logo-paca-plus.png" alt="Paca Plus" />
 
       <p class="intro">
@@ -357,6 +354,7 @@
 
   <main id="app" class="app">
     <aside id="sidebar" class="sidebar">
+      <!-- LOGO NA RAIZ -->
       <img class="side-logo" src="logo-paca-plus.png" alt="Paca Plus" />
 
       <button class="menu-btn active" onclick="abrirSecao('perfil', this)">Meu perfil</button>
@@ -464,10 +462,6 @@
     const savedId = localStorage.getItem("paca_plus_id");
 
     window.addEventListener("load", () => {
-      if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("service-worker.js").catch(() => {});
-      }
-
       if (savedId) {
         document.getElementById("idInput").value = savedId;
         entrar(true);
