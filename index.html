@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PACA APP</title>
+  <title>Paca Plus</title>
 
   <style>
     :root {
@@ -354,13 +354,21 @@
       }
     }
   </style>
+
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <meta name="theme-color" content="#003849" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Paca Plus" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+
 </head>
 <body>
 
   <main id="loginPage" class="login-page">
     <section class="login-card">
-      <div class="brand">PACAEMBU</div>
-      <div class="brand-sub">CONSTRUTORA</div>
+      <div class="brand">Paca Plus</div>
+      <div class="brand-sub">PJ1</div>
 
       <div class="flag">
         <div></div><div></div><div></div>
@@ -380,7 +388,7 @@
 
   <main id="app" class="app">
     <aside id="sidebar" class="sidebar">
-      <div class="side-logo">PACA APP</div>
+      <div class="side-logo">Paca Plus</div>
       <div class="side-sub">PJ1</div>
 
       <button class="menu-btn active" onclick="abrirSecao('perfil', this)">Meu perfil</button>
@@ -607,5 +615,14 @@
       location.reload();
     }
   </script>
+
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("service-worker.js");
+      });
+    }
+  </script>
+
 </body>
 </html>
